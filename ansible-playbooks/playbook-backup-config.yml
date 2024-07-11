@@ -1,0 +1,17 @@
+---
+- name: Generar respaldo de la configuración del router
+  hosts: Vivanco-Toro
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: Ejecutar show running-config y guardar en un archivo
+      ios_command:
+        commands:
+          - show running-config
+      register: output
+
+    - name: Guardar la salida en un archivo local
+      copy:
+        content: "{{ output.stdout[0] }}"
+        dest: "/path/to/save/config_{{ inventory_hostname }}.txt"

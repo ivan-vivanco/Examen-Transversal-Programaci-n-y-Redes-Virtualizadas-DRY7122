@@ -1,0 +1,13 @@
+---
+- name: Asignar direccionamiento IPv6 a la interfaz loopback 33
+  hosts: Vivanco-Toro
+  connection: network_cli  # Use 'network_cli' for Cisco devices
+  gather_facts: no
+
+  tasks:
+    - name: Configurar direccionamiento IPv6 en loopback 33
+      ios_config:
+        lines:
+          - ipv6 address 2001:db8::33/64
+        parents: interface loopback33
+
